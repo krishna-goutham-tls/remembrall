@@ -2,10 +2,11 @@
   "name": "remembrall-mcp-server",
   "version": "0.1.0",
   "description": "MCP server for Remembrall recall tool",
+  "type": "module",
   "main": "dist/server.js",
   "scripts": {
     "build": "tsc",
-    "test": "node --test dist/test.js"
+    "test": "node --test --import tsx src/ranking.test.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
@@ -14,6 +15,7 @@
   "devDependencies": {
     "@types/node": "^22.0.0",
     "@types/better-sqlite3": "^7.6.0",
+    "tsx": "^4.19.0",
     "typescript": "^5.0.0"
   }
 }
