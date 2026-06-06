@@ -2792,6 +2792,7 @@ dependencies = [
  "env_logger",
  "log",
  "notify",
+ "once_cell",
  "regex",
  "rusqlite",
  "serde",
