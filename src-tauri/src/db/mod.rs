@@ -1,12 +1,19 @@
-pub mod schema;
 pub mod queries;
+pub mod schema;
 
-use rusqlite::{Connection, Result};
+use anyhow::{Context, Result};
+use rusqlite::Connection;
 use std::path::PathBuf;
 
-/// Open database connection in WAL mode
-pub fn open_database(path: PathBuf) -> Result<Connection> {
-    let conn = Connection::open(path)?;
-    conn.execute_batch("PRAGMA journal_mode=WAL;")?;
-    Ok(conn)
+use schema::{get_database_path, initialize_database};
+
+/// Open database connection with WAL mode and run migrations
+pub fn open_database() -> Result<Connection> {
+    let path = get_database_path().context("Failed to get database path")?;
+    initialize_database(&path)
+}
+
+/// Get the database path (for use by MCP server)
+pub fn get_db_path() -> Result<PathBuf> {
+    get_database_path()
 }

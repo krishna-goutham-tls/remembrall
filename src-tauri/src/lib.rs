@@ -1,9 +1,9 @@
+pub mod correlation;
+pub mod db;
+pub mod decay;
 pub mod fswatcher;
 pub mod parser;
-pub mod db;
 pub mod redaction;
-pub mod decay;
-pub mod correlation;
 
 use tauri::{
     menu::{Menu, MenuItem},
