@@ -1,0 +1,19 @@
+{
+  "name": "remembrall-mcp-server",
+  "version": "0.1.0",
+  "description": "MCP server for Remembrall recall tool",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "node --test dist/test.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "better-sqlite3": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/better-sqlite3": "^7.6.0",
+    "typescript": "^5.0.0"
+  }
+}
