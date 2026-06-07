@@ -1478,22 +1478,27 @@ mod tests {
         update_app_setting(&conn, "theme", "dark").unwrap();
 
         let settings = get_app_settings(&conn).unwrap();
-        assert_eq!(settings.len(), 1);
-        assert_eq!(settings[0].key, "theme");
-        assert_eq!(settings[0].value, "dark");
+        // 4 defaults from migration 006 + 1 inserted = 5
+        assert_eq!(settings.len(), 5);
+        // Find the theme row
+        let theme_row = settings.iter().find(|s| s.key == "theme").unwrap();
+        assert_eq!(theme_row.value, "dark");
 
         // Update existing
         update_app_setting(&conn, "theme", "light").unwrap();
 
         let settings2 = get_app_settings(&conn).unwrap();
-        assert_eq!(settings2.len(), 1); // Still 1 row (upserted)
-        assert_eq!(settings2[0].value, "light");
+        // Still 5 rows (upserted, not new insert)
+        assert_eq!(settings2.len(), 5);
+        let theme_row2 = settings2.iter().find(|s| s.key == "theme").unwrap();
+        assert_eq!(theme_row2.value, "light");
 
         // Add another key
         update_app_setting(&conn, "model_size", "4b").unwrap();
 
         let settings3 = get_app_settings(&conn).unwrap();
-        assert_eq!(settings3.len(), 2);
+        // Now 6 rows (5 defaults + theme + model_size)
+        assert_eq!(settings3.len(), 6);
     }
 
     #[test]

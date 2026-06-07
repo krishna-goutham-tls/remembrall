@@ -11,7 +11,7 @@ use std::path::{Path, PathBuf};
 use sqlite_vec::sqlite3_vec_init;
 
 /// Current schema version - must match the highest migration number
-const CURRENT_SCHEMA_VERSION: u32 = 5;
+const CURRENT_SCHEMA_VERSION: u32 = 6;
 
 /// Migration files in order
 const MIGRATIONS: &[(&str, &str)] = &[
@@ -34,6 +34,10 @@ const MIGRATIONS: &[(&str, &str)] = &[
     (
         "005_add_session_message_count.sql",
         include_str!("../../../migrations/005_add_session_message_count.sql"),
+    ),
+    (
+        "006_add_app_settings_and_update_vec.sql",
+        include_str!("../../../migrations/006_add_app_settings_and_update_vec.sql"),
     ),
 ];
 
