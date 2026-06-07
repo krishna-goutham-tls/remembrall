@@ -4,10 +4,10 @@
   "identifier": "com.remembrall.app",
   "version": "0.1.0",
   "build": {
-    "frontendDist": "../src",
+    "frontendDist": "../dist",
     "devUrl": "http://localhost:1420",
-    "beforeDevCommand": "",
-    "beforeBuildCommand": ""
+    "beforeDevCommand": "npx vite --port 1420",
+    "beforeBuildCommand": "npx vite build"
   },
   "app": {
     "withGlobalTauri": true,
