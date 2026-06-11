@@ -1,3 +1,4 @@
+use crate::db;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -11,11 +12,12 @@ pub struct BackfillProgress {
 #[tauri::command]
 pub async fn get_backfill_progress() -> Result<BackfillProgress, String> {
     log::info!("get_backfill_progress called");
-    // TODO: Wire up to db::queries::get_backfill_progress
+    let conn = db::queries::open_connection().map_err(|e| e.to_string())?;
+    let progress = db::queries::get_backfill_progress(&conn).map_err(|e| e.to_string())?;
     Ok(BackfillProgress {
-        indexed: 0,
-        total: 0,
-        status: "idle".to_string(),
+        indexed: progress.indexed as usize,
+        total: progress.total as usize,
+        status: progress.status,
     })
 }
 
@@ -23,7 +25,7 @@ pub async fn get_backfill_progress() -> Result<BackfillProgress, String> {
 #[tauri::command]
 pub async fn start_backfill() -> Result<(), String> {
     log::info!("start_backfill called");
-    // TODO: Wire up to pipeline::backfill::start
+    // TODO: Wire up to pipeline::backfill::start (Phase 2)
     Ok(())
 }
 
@@ -31,7 +33,7 @@ pub async fn start_backfill() -> Result<(), String> {
 #[tauri::command]
 pub async fn pause_backfill() -> Result<(), String> {
     log::info!("pause_backfill called");
-    // TODO: Wire up to pipeline::backfill::pause
+    // TODO: Wire up to pipeline::backfill::pause (Phase 2)
     Ok(())
 }
 
@@ -39,6 +41,6 @@ pub async fn pause_backfill() -> Result<(), String> {
 #[tauri::command]
 pub async fn resume_backfill() -> Result<(), String> {
     log::info!("resume_backfill called");
-    // TODO: Wire up to pipeline::backfill::resume
+    // TODO: Wire up to pipeline::backfill::resume (Phase 2)
     Ok(())
 }
